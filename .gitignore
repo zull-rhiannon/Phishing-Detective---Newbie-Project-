@@ -1,0 +1,17 @@
+# Virtual environment
+venv/
+.venv/
+
+# Data hasil user testing (jangan masuk repo publik)
+logs/
+*.log
+
+# Secret
+.streamlit/secrets.toml
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Sistem
+.DS_Store

@@ -1,0 +1,51 @@
+{
+  "indikator": {
+    "domain_beda": {"label": "Domain link tidak cocok dengan pengirim", "bobot": 3},
+    "minta_kredensial": {"label": "Meminta login/data sensitif lewat pesan", "bobot": 3},
+    "mendesak": {"label": "Nada mendesak / ancaman waktu", "bobot": 2},
+    "tawaran_tak_wajar": {"label": "Tawaran terlalu bagus untuk jadi nyata", "bobot": 2},
+    "sapaan_generik": {"label": "Sapaan generik (bukan nama kamu)", "bobot": 1},
+    "salah_ketik": {"label": "Salah ketik / bahasa janggal", "bobot": 1}
+  },
+  "skenario": [
+    {
+      "id": "S01",
+      "is_phishing": true,
+      "from": "Layanan Nasabah <cs@bankxyz-info.example>",
+      "subject": "URGENT: Akun Anda akan diblokir dalam 1 jam",
+      "body": "Pelanggan yang terhormat,\n\nKami mendeteksi aktivitas mencurigakan. Akun Anda akan diblokir dalam 1 jam jika tidak segera diverifikasi. Klik link di bawah dan masukkan data login Anda.",
+      "link_text": "https://login-bankxyz.example/verifikasi",
+      "login_url": "https://login-bankxyz.example/verifikasi",
+      "login_title": "BankXYZ - Verifikasi Akun",
+      "login_banner": "Akun Anda diblokir sementara! Masuk sekarang untuk membukanya.",
+      "indicators": ["domain_beda", "minta_kredensial", "mendesak", "sapaan_generik"],
+      "penjelasan": "Domain 'login-bankxyz.example' berbeda dari pengirim 'bankxyz-info.example', pesan memakai ancaman waktu, dan meminta login lewat link. Bank asli tidak meminta data login lewat pesan. Cara aman: buka aplikasi/situs resmi lewat alamat yang kamu ketik sendiri."
+    },
+    {
+      "id": "S02",
+      "is_phishing": true,
+      "from": "Admin Promo <promo@tokokita-hadiah.example>",
+      "subject": "Selamat! Kamu terpilih menerima voucher Rp500.000",
+      "body": "Halo Pengguna,\n\nSelamat kamu terpilih sebagai pemenang giveaway. Untuk klaim hadiah, segera lakukan verifkasi akun dengan login di link berikut sebelum hari ini berakhir.",
+      "link_text": "https://klaim-tokokita.example/hadiah",
+      "login_url": "https://klaim-tokokita.example/hadiah",
+      "login_title": "TokoKita - Klaim Hadiah",
+      "login_banner": "Hadiah akan hangus dalam 10 menit!",
+      "indicators": ["domain_beda", "minta_kredensial", "mendesak", "tawaran_tak_wajar", "sapaan_generik", "salah_ketik"],
+      "penjelasan": "Kamu tidak pernah ikut giveaway, hadiahnya tidak wajar, ada salah ketik ('verifkasi'), domain tidak cocok, dan ada tekanan waktu. Hadiah sungguhan tidak meminta login lewat link di pesan."
+    },
+    {
+      "id": "S03",
+      "is_phishing": false,
+      "from": "Akademik Kampus <akademik@kampus-contoh.example>",
+      "subject": "Pengumuman jadwal UTS semester ini",
+      "body": "Halo,\n\nJadwal UTS sudah tersedia di portal akademik. Silakan cek lewat portal seperti biasa. Tidak ada tindakan lain yang diperlukan.",
+      "link_text": "https://akademik.kampus-contoh.example/jadwal",
+      "login_url": "https://akademik.kampus-contoh.example/jadwal",
+      "login_title": "Portal Akademik Kampus Contoh",
+      "login_banner": "",
+      "indicators": [],
+      "penjelasan": "Pesan ini sah: domain link cocok dengan pengirim, tidak mendesak, dan tidak meminta data. Kebiasaan paling aman tetap membuka portal lewat alamat yang kamu ketik sendiri."
+    }
+  ]
+}
