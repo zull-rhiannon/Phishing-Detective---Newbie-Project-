@@ -57,14 +57,17 @@ def init_state(n):
 
 
 def write_log(sc_id, titik, tindakan, skor, hasil):
-    LOG_FILE.parent.mkdir(exist_ok=True)
-    baru = not LOG_FILE.exists()
-    with open(LOG_FILE, "a", encoding="utf-8") as f:
-        if baru:
-            f.write("waktu,id_sesi,nama,id_skenario,titik,tindakan,skor,hasil\n")
-        waktu = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        f.write(f"{waktu},{st.session_state.sid},{st.session_state.nama},"
-                f"{sc_id},{titik},{tindakan},{skor},{hasil}\n")
+    try:
+        LOG_FILE.parent.mkdir(exist_ok=True)
+        baru = not LOG_FILE.exists()
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            if baru:
+                f.write("waktu,id_sesi,nama,id_skenario,titik,tindakan,skor,hasil\n")
+            waktu = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            f.write(f"{waktu},{st.session_state.sid},{st.session_state.nama},"
+                    f"{sc_id},{titik},{tindakan},{skor},{hasil}\n")
+    except OSError:
+        pass  # log gagal ditulis, app tetap jalan
 
 
 # ---------- logika scoring ----------
